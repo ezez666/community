@@ -15,17 +15,19 @@ public class Page {
     }
 
     public void setCurrent(int current) {
-        this.current = current;
+        if(current>=1){
+            this.current = current;
+        }
     }
 
     public int getLimit() {
         return limit;
     }
 
-
-
     public void setLimit(int limit) {
-        this.limit = limit;
+        if(limit>=1&&limit<=100){
+            this.limit = limit;
+        }
     }
 
     public int getRows() {
@@ -33,7 +35,9 @@ public class Page {
     }
 
     public void setRows(int rows) {
-        this.rows = rows;
+        if(rows>=1){
+            this.rows = rows;
+        }
     }
 
     public String getPath() {
@@ -43,6 +47,46 @@ public class Page {
     public void setPath(String path) {
         this.path = path;
     }
+
+    /**
+     *获取当前页的起始行
+     * @return
+     */
+    public int getOffset(){
+        return this.limit*(this.current-1);
+    }
+
+    /**
+     * 获取总页数
+     * @return
+     */
+    public int getTotal(){
+        if(rows%this.limit==0){
+            return rows/this.limit;
+        }else{
+            return rows/this.limit+1;
+        }
+    }
+
+    /**
+     * 获取起始页码
+     * @return
+     */
+    public int getFrom(){
+        int from = this.current-2;
+        return from<1?1:from;
+    }
+
+    /**
+     * 获取结尾页码
+     * @return
+     */
+    public int getTo(){
+        int to = this.current+2;
+        return to>this.getTotal()?this.getTotal():to;
+    }
+
+
 
     @Override
     public String toString() {
