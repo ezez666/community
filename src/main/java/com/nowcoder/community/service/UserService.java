@@ -58,7 +58,7 @@ public class UserService implements CommunityConstant {
             return map;
         }
         if(StringUtils.isBlank(user.getEmail())){
-            map.put("emailMsg","密码不能为空");
+            map.put("emailMsg","邮箱不能为空");
             return map;
         }
 
@@ -143,4 +143,10 @@ public class UserService implements CommunityConstant {
         return map;
     }
 
+    public void logout(String ticket){
+        loginTicketMapper.updateStatus(ticket,1);
+    }
+    public LoginTicket findLoginTicket(String ticket){
+        return loginTicketMapper.selectByTicket(ticket);
+    }
 }
