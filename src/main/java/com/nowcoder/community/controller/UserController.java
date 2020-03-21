@@ -1,6 +1,7 @@
 package com.nowcoder.community.controller;
 
 
+import com.nowcoder.community.annotation.LoginRequired;
 import com.nowcoder.community.entity.User;
 import com.nowcoder.community.service.UserService;
 import com.nowcoder.community.util.CommunityUtil;
@@ -35,11 +36,14 @@ public class UserController {
     private HostHolder hostHolder;
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    @LoginRequired
     @RequestMapping(path = "/setting",method = RequestMethod.GET)
     public String updateUser(){
         return "site/setting";
     }
 
+    @LoginRequired
     @RequestMapping(path = "/upload",method = RequestMethod.POST)
     public String updateHeader(MultipartFile headerImage, Model model){
         if(headerImage == null){
@@ -85,6 +89,7 @@ public class UserController {
         }
     }
 
+    @LoginRequired
     @RequestMapping(path = "/updatePwd",method = RequestMethod.POST)
     public String updatePwd(String oldPassword,String newPassword,Model model){
         User user = hostHolder.getUser();
